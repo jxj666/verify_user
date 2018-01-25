@@ -56,7 +56,6 @@ function addEvent(el, type, handler) {
 
 
 //拖动动画
-
 // animate to left
 function animateLeft(el, duration, left) {
     var s = el.style,
@@ -88,7 +87,7 @@ function SliderUnlock(elm, options, success, always) {
     var always = _self.checkFn(always) ? always : function () {};
 
     var opts = {
-        labelTip: typeof (options.labelTip) !== "undefined" ? options.labelTip : "Slide to Unlock",
+        labelTip: typeof (options.labelTip) !== "undefined" ? options.labelTip : "对齐拼图解锁",
         successLabelTip: typeof (options.successLabelTip) !== 'undefined' ? options.successLabelTip : "Success",
         duration: typeof (options.duration) !== 'undefined' || !isNaN(options.duration) ? options.duration : 200,
         swipestart: typeof (options.swipestart) !== 'undefined' ? options.swipestart : false,
