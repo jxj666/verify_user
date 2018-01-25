@@ -2,7 +2,7 @@
 
 //工具箱
 // get the element object
-function $(selector, context) {
+function my$(selector, context) {
     return (context || document).querySelectorAll(selector);
 }
 
@@ -81,25 +81,25 @@ function animateOpacity(el, duration, opacity) {
 function SliderUnlock(elm, options, success, always) {
     var _self = this;
 
-    var $elm = _self.checkElm(elm) ? $(elm)[0] : document;
+    var my$elm = _self.checkElm(elm) ? my$(elm)[0] : document;
     var options = _self.checkObj(options) ? options : new Object();
-    var success = _self.checkFn(success) ? success : function () {};
-    var always = _self.checkFn(always) ? always : function () {};
+    var success = _self.checkFn(success) ? success : function() {};
+    var always = _self.checkFn(always) ? always : function() {};
 
     var opts = {
-        labelTip: typeof (options.labelTip) !== "undefined" ? options.labelTip : "对齐拼图解锁",
-        successLabelTip: typeof (options.successLabelTip) !== 'undefined' ? options.successLabelTip : "Success",
-        duration: typeof (options.duration) !== 'undefined' || !isNaN(options.duration) ? options.duration : 200,
-        swipestart: typeof (options.swipestart) !== 'undefined' ? options.swipestart : false,
-        min: typeof (options.min) !== 'undefined' || !isNaN(options.min) ? options.min : 0,
-        max: typeof (options.max) !== 'undefined' || !isNaN(options.max) ? options.max : $elm.clientWidth - $(".slideunlock-label")[0].clientWidth,
-        index: typeof (options.index) !== 'undefined' || !isNaN(options.index) ? options.index : 0,
-        IsOk: typeof (options.isOk) !== 'undefined' ? options.isOk : false,
-        lableIndex: typeof (options.lableIndex) !== 'undefined' || !isNaN(options.lableIndex) ? options.lableIndex : 0
+        labelTip: typeof(options.labelTip) !== "undefined" ? options.labelTip : "对齐拼图解锁",
+        successLabelTip: typeof(options.successLabelTip) !== 'undefined' ? options.successLabelTip : "Success",
+        duration: typeof(options.duration) !== 'undefined' || !isNaN(options.duration) ? options.duration : 200,
+        swipestart: typeof(options.swipestart) !== 'undefined' ? options.swipestart : false,
+        min: typeof(options.min) !== 'undefined' || !isNaN(options.min) ? options.min : 0,
+        max: typeof(options.max) !== 'undefined' || !isNaN(options.max) ? options.max : my$elm.clientWidth - my$(".slideunlock-label")[0].clientWidth,
+        index: typeof(options.index) !== 'undefined' || !isNaN(options.index) ? options.index : 0,
+        IsOk: typeof(options.isOk) !== 'undefined' ? options.isOk : false,
+        lableIndex: typeof(options.lableIndex) !== 'undefined' || !isNaN(options.lableIndex) ? options.lableIndex : 0
     }
 
-    //$elm
-    _self.elm = $elm;
+    //my$elm
+    _self.elm = my$elm;
     //opts
     _self.opts = opts;
     //是否开始滑动 (Whether to start sliding)
@@ -121,8 +121,8 @@ function SliderUnlock(elm, options, success, always) {
 }
 
 // check the element exists
-SliderUnlock.prototype.checkElm = function (elm) {
-    if ($(elm).length > 0) {
+SliderUnlock.prototype.checkElm = function(elm) {
+    if (my$(elm).length > 0) {
         return true;
     } else {
         throw "this element does not exist.";
@@ -130,7 +130,7 @@ SliderUnlock.prototype.checkElm = function (elm) {
 };
 
 // judge the given param is a object
-SliderUnlock.prototype.checkObj = function (obj) {
+SliderUnlock.prototype.checkObj = function(obj) {
     if (typeof obj === "object") {
         return true;
     } else {
@@ -139,7 +139,7 @@ SliderUnlock.prototype.checkObj = function (obj) {
 };
 
 // judge the given param is a function
-SliderUnlock.prototype.checkFn = function (fn) {
+SliderUnlock.prototype.checkFn = function(fn) {
     if (typeof fn === "function") {
         return true;
     } else {
@@ -148,35 +148,35 @@ SliderUnlock.prototype.checkFn = function (fn) {
 };
 
 // initialize
-SliderUnlock.prototype.init = function () {
+SliderUnlock.prototype.init = function() {
     var _self = this,
-        _slideunlockLabel = $(".slideunlock-label")[0];
+        _slideunlockLabel = my$(".slideunlock-label")[0];
 
     _self.updateView();
-    addEvent(_slideunlockLabel, "mousedown", function (event) {
+    addEvent(_slideunlockLabel, "mousedown", function(event) {
         var e = event || window.event;
         _self.lableIndex = e.clientX - this.offsetLeft;
         _self.handerIn();
     });
-    addEvent(_slideunlockLabel, "mousemove", function (event) {
+    addEvent(_slideunlockLabel, "mousemove", function(event) {
         _self.handerMove(event);
     });
-    addEvent(_slideunlockLabel, "mouseup", function (event) {
+    addEvent(_slideunlockLabel, "mouseup", function(event) {
         _self.handerOut();
     });
-    addEvent(_slideunlockLabel, "mouseout", function (event) {
+    addEvent(_slideunlockLabel, "mouseout", function(event) {
         _self.handerOut();
     });
-    addEvent(_slideunlockLabel, "touchstart", function (event) {
+    addEvent(_slideunlockLabel, "touchstart", function(event) {
         var e = event || window.event;
         console.log(e);
         _self.lableIndex = e.touches[0].pageX - this.offsetLeft;
         _self.handerIn();
     });
-    addEvent(_slideunlockLabel, "touchmove", function (event) {
+    addEvent(_slideunlockLabel, "touchmove", function(event) {
         _self.handerMove(event, "mobile");
     });
-    addEvent(_slideunlockLabel, "touchend", function (event) {
+    addEvent(_slideunlockLabel, "touchend", function(event) {
         _self.handerOut();
     });
 }
@@ -185,29 +185,42 @@ SliderUnlock.prototype.init = function () {
  * 鼠标 /手指接触滑动按钮
  * Mouse / finger touch slide button
  */
-SliderUnlock.prototype.handerIn = function () {
+SliderUnlock.prototype.handerIn = function() {
     var _self = this;
     _self.swipestart = true;
     _self.min = 0;
-    _self.max = _self.elm.clientWidth - $(".slideunlock-label")[0].clientWidth;
+    _self.max = _self.elm.clientWidth - my$(".slideunlock-label")[0].clientWidth;
 }
 
 /**
  * 鼠标 /手指移出
  * Mouse / finger out
  */
-SliderUnlock.prototype.handerOut = function () {
+SliderUnlock.prototype.handerOut = function() {
     var _self = this;
     // stop
     _self.swipestart = false;
     // _self.move();
+    _self.verify();
 }
-
+SliderUnlock.prototype.verify = function() {
+    var _self = this;
+    $.post(
+        'code.php', { 'yzm': _self.index },
+        function(data) {
+            if (data == 1) {
+                alert('YES');
+            } else {
+                alert('NO');
+            }
+        }
+    )
+}
 /**
  * 鼠标 /手指移动
  * Mouse / finger move
  */
-SliderUnlock.prototype.handerMove = function (event, type) {
+SliderUnlock.prototype.handerMove = function(event, type) {
     var _self = this;
     if (_self.swipestart) {
         event.preventDefault();
@@ -225,7 +238,7 @@ SliderUnlock.prototype.handerMove = function (event, type) {
  * 鼠标 /手指移动过程
  * Mouse / finger movement process
  */
-SliderUnlock.prototype.move = function () {
+SliderUnlock.prototype.move = function() {
     var _self = this;
     if ((_self.index + 0) >= _self.max) {
         _self.index = _self.max - 0;
@@ -250,36 +263,38 @@ SliderUnlock.prototype.move = function () {
  * 重置slide的起点
  * Resets the starting point of the slide
  */
-SliderUnlock.prototype.reset = function () {
+SliderUnlock.prototype.reset = function() {
     var _self = this;
 
-    animateLeft($(".slideunlock-label")[0], _self.opts.duration, _self.index);
-    animateOpacity($(".slideunlock-lable-tip")[0], _self.opts.duration, 1);
+    animateLeft(my$(".slideunlock-label")[0], _self.opts.duration, _self.index);
+    animateOpacity(my$(".slideunlock-lable-tip")[0], _self.opts.duration, 1);
 
     _self.index = 0
     _self.updateView();
+    var num = Math.random() * 10;
+    document.getElementById('yzimg').src = 'verify.php?r=' + num;
 };
 
 /**
  * 背景颜色渐变
  * Background color gradient
  */
-SliderUnlock.prototype.backgroundTranslate = function () {
+SliderUnlock.prototype.backgroundTranslate = function() {
     var _self = this;
-    $(".slideunlock-label")[0].style.left = _self.index + "px";
-    $('.slideunlock-lable-tip')[0].style.opacity = 1 - (parseInt($(".slideunlock-label")[0].style.left) / _self.max);
+    my$(".slideunlock-label")[0].style.left = _self.index + "px";
+    my$('.slideunlock-lable-tip')[0].style.opacity = 1 - (parseInt(my$(".slideunlock-label")[0].style.left) / _self.max);
 }
 
 /**
  * 更新视图
  * Update the view
  */
-SliderUnlock.prototype.updateView = function () {
+SliderUnlock.prototype.updateView = function() {
     var _self = this,
-        _labelTipEle = $(".slideunlock-lable-tip")[0];
+        _labelTipEle = my$(".slideunlock-lable-tip")[0];
 
     if (_self.index == (_self.max - 0)) {
-        $(".slideunlock-lockable")[0].value = 1;
+        my$(".slideunlock-lockable")[0].value = 1;
         var style = {
             "filter": "alpha(opacity=1)",
             "-moz-opacity": "1",
@@ -289,7 +304,7 @@ SliderUnlock.prototype.updateView = function () {
         _labelTipEle.innerHTML = _self.opts.successLabelTip;
         css(_labelTipEle, style);
     } else {
-        $(".slideunlock-lockable")[0].value = 0;
+        my$(".slideunlock-lockable")[0].value = 0;
         removeClass(_self.elm, "success");
         _labelTipEle.innerHTML = _self.opts.labelTip;
     }
