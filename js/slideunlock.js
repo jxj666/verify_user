@@ -209,9 +209,9 @@ SliderUnlock.prototype.verify = function() {
         'code.php', { 'yzm': _self.index },
         function(data) {
             if (data == 1) {
-                alert('YES');
+                console.log('YES');
             } else {
-                alert('NO');
+                console.log('NO');
             }
         }
     )
@@ -252,9 +252,9 @@ SliderUnlock.prototype.move = function() {
         // 未解锁 (unlock)
         _self.isOk = false;
     }
-    if (_self.index == _self.max && _self.max > 0 && _self.isOk) {
-        _self.success();
-    }
+    // if (_self.index == _self.max && _self.max > 0 && _self.isOk) {
+    //     _self.success();
+    // }
     _self.backgroundTranslate();
     _self.updateView();
 }
@@ -300,12 +300,12 @@ SliderUnlock.prototype.updateView = function() {
             "-moz-opacity": "1",
             "opacity": "1"
         };
-        addClass(_self.elm, "success");
+        // addClass(_self.elm, "success");
         _labelTipEle.innerHTML = _self.opts.successLabelTip;
         css(_labelTipEle, style);
     } else {
         my$(".slideunlock-lockable")[0].value = 0;
-        removeClass(_self.elm, "success");
+        // removeClass(_self.elm, "success");
         _labelTipEle.innerHTML = _self.opts.labelTip;
     }
     _self.always();
