@@ -5,7 +5,7 @@
     <title>验证码测试</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=360, initial-scale=0.75, user-scalable=no">
     <!-- css -->
     <link rel="stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/slideunlock.css">
@@ -13,11 +13,13 @@
 
 <body>
     <div class="slideunlock-wrapper">
-        <div><img src="verify.php" width="360" height="60" id="yzimg" onclick="huan()"></div>
+        <div class="img_box">
+            <div class="box" id="box"></div>
+            <img src="verify.php" width="360" height="60" id="yzimg" onclick="huan()"></div>
         <input type="hidden" value="" class="slideunlock-lockable" />
         <div class="slideunlock-slider">
             <span class="slideunlock-label"></span>
-            <span class="slideunlock-lable-tip">Slide to unlock!</span>
+            <span class="slideunlock-lable-tip">移动滑块!</span>
         </div>
     </div>
     <button id="reset-btn">重置</button>
@@ -33,10 +35,10 @@
                 ", max:" + slider.max +
                 ", lableIndex:" + slider.lableIndex +
                 ", value:" + document.querySelector(".slideunlock-lockable").value +
-                ", date:" + new Date().getUTCDate();
+                ", date:" + new Date().getUTCDate() +
+                ", verify:" + slider.yn;
         });
         slider.init();
-
         document.querySelector("#reset-btn").addEventListener('click', function() {
             slider.reset();
         });

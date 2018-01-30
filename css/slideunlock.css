@@ -26,23 +26,18 @@ body{
     background-color: #E5EE9F;
 }
 .slideunlock-label{
-    width: 40px;
+    width: 30px;
     position: absolute;
     left: 0;
     top: 0;
     height: 100%;
-    background: #E67E22;
+    background: rgba(100,100,100,0.5);
     z-index: 999;
     border-radius: 2px;
     cursor: pointer;
 }
 .slideunlock-label-tip{
     z-index: 9;
-}
-@media screen and (max-width: 640px) {
-    .slideunlock-wrapper{
-        width: 64%;
-    }
 }
 
 #reset-btn{
@@ -52,4 +47,17 @@ body{
 p{
     padding: 0 10px;
     word-wrap: break-word;
+}
+.img_box{
+    position: relative;
+}
+.box{
+    position: absolute;
+    top:15px;
+    left: 0px;
+    width: 31px;
+    height: 31px;
+    border:1px solid rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    background: rgba(0,0,0,0.1);
 }
