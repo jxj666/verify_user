@@ -50,6 +50,10 @@ p{
 }
 .img_box{
     position: relative;
+    width: 360px;
+    height: 60px;
+    overflow: hidden;
+    margin:5px auto;
 }
 .box{
     position: absolute;
@@ -60,4 +64,11 @@ p{
     border:1px solid rgba(0,0,0,0.5);
     box-sizing: border-box;
     background: rgba(0,0,0,0.1);
+}
+.text_box{
+    width: 360px;
+    height: 30px;
+    line-height: 30px;
+    margin:5px auto;
+    background: #fff;
 }

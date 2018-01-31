@@ -1,31 +1,31 @@
  'use strict'
 
- //工具箱
- // get the element object
+ 
+ 
  function ele(selector, context) {
      return (context || document).querySelectorAll(selector);
  }
 
- // add CSS sttributes to the dom element
+ 
  function css(el, styles) {
      for (var property in styles) {
          el.style[property] = styles[property];
      }
  }
 
- //just replace the css function that you write, it has a bug, if the styles has a css like "margin-left", the "-" signal will be error in style[*]
+ 
  function css(el, styles) {
      for (var property in styles) {
          el.style[property.toString()] = styles[property];
      }
  }
 
- // check the dom has someone class style
+ 
  function hasClass(el, className) {
      return el.classList ? el.classList.contains(className) : new RegExp('\\b' + className + '\\b').test(el.className);
  }
 
- // add class style
+ 
  function addClass(el, className) {
      if (el.classList) {
          el.classList.add(className);
@@ -34,7 +34,7 @@
      }
  }
 
- // remove class style
+ 
  function removeClass(el, className) {
      if (el.classList) {
          el.classList.remove(className);
@@ -43,7 +43,7 @@
      }
  }
 
- // helper for enabling IE 8 event bindings
+ 
  function addEvent(el, type, handler) {
      if (el.attachEvent) {
          el.attachEvent('on' + type, handler);
@@ -55,8 +55,7 @@
 
 
 
- //拖动动画
- // animate to left
+ 
  function animateLeft(el, duration, left) {
      var s = el.style,
          step = (duration || 200) / 20;
@@ -67,7 +66,7 @@
      })();
  }
 
- // animate opacity
+ 
  function animateOpacity(el, duration, opacity) {
      var s = el.style,
          step = 25 / (duration || 200);
@@ -77,7 +76,7 @@
      })();
  }
 
- // the main object SliderUnlock
+ 
  function SliderUnlock(elm, options, success, always) {
      var _self = this;
 
@@ -94,44 +93,45 @@
          min: typeof(options.min) !== 'undefined' || !isNaN(options.min) ? options.min : 0,
          max: typeof(options.max) !== 'undefined' || !isNaN(options.max) ? options.max : eleelm.clientWidth - ele(".slideunlock-label")[0].clientWidth,
          index: typeof(options.index) !== 'undefined' || !isNaN(options.index) ? options.index : 0,
-         IsOk: typeof(options.isOk) !== 'undefined' ? options.isOk : false,
+         sOk: typeof(options.isOk) !== 'undefined' ? options.isOk : false,
          lableIndex: typeof(options.lableIndex) !== 'undefined' || !isNaN(options.lableIndex) ? options.lableIndex : 0,
          yn: 'no'
      }
-     //最小值 (Minimum value)
+
+     
      _self.yn = opts.yn;
-     //eleelm
+     
      _self.elm = eleelm;
-     //opts
+     
      _self.opts = opts;
-     //是否开始滑动 (Whether to start sliding)
+     
      _self.swipestart = opts.swipestart;
-     //最小值 (Minimum value)
+     
      _self.min = opts.min;
-     //最大值 (Maximum value)
+     
      _self.max = opts.max;
-     //当前滑动条所处的位置 (The location of the current slider)
+     
      _self.index = opts.index;
-     //是否滑动成功 (Whether the slide is successful)
+     
      _self.isOk = opts.isOk;
-     //鼠标在滑动按钮的位置 (The mouse is in the position of the sliding button)
+     
      _self.lableIndex = opts.lableIndex;
-     //success
+     
      _self.success = success;
-     //always
+     
      _self.always = always;
  }
 
- // check the element exists
+ 
  SliderUnlock.prototype.checkElm = function(elm) {
      if (ele(elm).length > 0) {
          return true;
      } else {
-         throw "this element does not exist.";
+         throw "这个元素不支持";
      }
  };
 
- // judge the given param is a object
+ 
  SliderUnlock.prototype.checkObj = function(obj) {
      if (typeof obj === "object") {
          return true;
@@ -140,7 +140,7 @@
      }
  };
 
- // judge the given param is a function
+ 
  SliderUnlock.prototype.checkFn = function(fn) {
      if (typeof fn === "function") {
          return true;
@@ -149,7 +149,7 @@
      }
  };
 
- // initialize
+ 
  SliderUnlock.prototype.init = function() {
      var _self = this,
          _slideunlockLabel = ele(".slideunlock-label")[0];
@@ -185,10 +185,7 @@
 
 
 
- /**
-  * 鼠标 /手指接触滑动按钮
-  * Mouse / finger touch slide button
-  */
+
  SliderUnlock.prototype.handerIn = function() {
      var _self = this;
      _self.swipestart = true;
@@ -196,17 +193,14 @@
      _self.max = _self.elm.clientWidth - ele(".slideunlock-label")[0].clientWidth;
  }
 
- /**
-  * 鼠标 /手指移出
-  * Mouse / finger out
-  */
+
  SliderUnlock.prototype.handerOut = function() {
      var _self = this;
      _self.verify();
      _self.swipestart = false;
 
  }
- //验证
+ 
  SliderUnlock.prototype.verify = function() {
      var _self = this,
          _labelTipEle = ele(".slideunlock-lable-tip")[0];
@@ -215,7 +209,7 @@
          function(data) {
              var key = JSON.parse(data);
              sessionStorage.num = key.num;
-             // console.log(key);
+             
              if (key.yn == 1) {
                  _self.yn = 'YES';
                  ele(".slideunlock-lockable")[0].value = 1;
@@ -237,10 +231,7 @@
          }
      )
  }
- /**
-  * 鼠标 /手指移动
-  * Mouse / finger move
-  */
+
  SliderUnlock.prototype.handerMove = function(event, type) {
      var _self = this;
      if (_self.swipestart) {
@@ -255,35 +246,29 @@
      }
  }
 
- /**
-  * 鼠标 /手指移动过程
-  * Mouse / finger movement process
-  */
+
  SliderUnlock.prototype.move = function() {
      var _self = this;
      if ((_self.index + 0) >= _self.max) {
          _self.index = _self.max - 0;
-         // // 停止 (stop)
-         // _self.swipestart = false;
-         // // 解锁 (lock)
-         // _self.isOk = true;
+         
+         
+         
+         
      }
      if (_self.index < 0) {
          _self.index = _self.min;
-         // // 未解锁 (unlock)
-         // _self.isOk = false;
+         
+         
      }
-     // if (_self.index == _self.max && _self.max > 0 && _self.isOk) {
-     //     _self.success();
-     // }
+     
+     
+     
      _self.backgroundTranslate();
      _self.updateView();
  }
 
- /**
-  * 重置slide的起点
-  * Resets the starting point of the slide
-  */
+
  SliderUnlock.prototype.reset = function() {
      var _self = this,
          _labelTipEle = ele(".slideunlock-lable-tip")[0];
@@ -302,20 +287,13 @@
      _self.updateView();
  };
 
- /**
-  * 背景颜色渐变
-  * Background color gradient
-  */
+
  SliderUnlock.prototype.backgroundTranslate = function() {
      var _self = this;
      ele(".slideunlock-label")[0].style.left = _self.index + "px";
-     //ele('.slideunlock-lable-tip')[0].style.opacity = 1 - (parseInt(ele(".slideunlock-label")[0].style.left) / _self.max);
+     
  }
 
- /**
-  * 更新视图
-  * Update the view
-  */
  SliderUnlock.prototype.updateView = function() {
      var _self = this,
          _labelTipEle = ele(".slideunlock-lable-tip")[0];
