@@ -1,31 +1,27 @@
  'use strict'
 
- 
- 
+ //工具箱
+
  function ele(selector, context) {
      return (context || document).querySelectorAll(selector);
  }
 
- 
  function css(el, styles) {
      for (var property in styles) {
          el.style[property] = styles[property];
      }
  }
 
- 
  function css(el, styles) {
      for (var property in styles) {
          el.style[property.toString()] = styles[property];
      }
  }
 
- 
  function hasClass(el, className) {
      return el.classList ? el.classList.contains(className) : new RegExp('\\b' + className + '\\b').test(el.className);
  }
 
- 
  function addClass(el, className) {
      if (el.classList) {
          el.classList.add(className);
@@ -34,7 +30,6 @@
      }
  }
 
- 
  function removeClass(el, className) {
      if (el.classList) {
          el.classList.remove(className);
@@ -43,7 +38,6 @@
      }
  }
 
- 
  function addEvent(el, type, handler) {
      if (el.attachEvent) {
          el.attachEvent('on' + type, handler);
@@ -55,28 +49,8 @@
 
 
 
- 
- function animateLeft(el, duration, left) {
-     var s = el.style,
-         step = (duration || 200) / 20;
-     s.left = s.left || '0px';
-     (function animation() {
-         s.left = (parseInt(s.left, 10) - step) > 0 ? (parseInt(s.left, 10) - step) + 'px' : 0;
-         parseInt(s.left, 10) > 0 ? setTimeout(animation, 10) : s.left = 0;
-     })();
- }
 
- 
- function animateOpacity(el, duration, opacity) {
-     var s = el.style,
-         step = 25 / (duration || 200);
-     s.opacity = s.opacity || 0;
-     (function animation() {
-         (s.opacity = parseFloat(s.opacity) + step) > 1 ? s.opacity = 1 : setTimeout(animation, 25);
-     })();
- }
 
- 
  function SliderUnlock(elm, options, success, always) {
      var _self = this;
 
@@ -98,31 +72,50 @@
          yn: 'no'
      }
 
-     
+
      _self.yn = opts.yn;
-     
+
      _self.elm = eleelm;
-     
+
      _self.opts = opts;
-     
+
      _self.swipestart = opts.swipestart;
-     
+
      _self.min = opts.min;
-     
+
      _self.max = opts.max;
-     
+
      _self.index = opts.index;
-     
+
      _self.isOk = opts.isOk;
-     
+
      _self.lableIndex = opts.lableIndex;
-     
+
      _self.success = success;
-     
+
      _self.always = always;
  }
+ SliderUnlock.prototype.animateLeft = function(el, duration, left) {
+     var s = el.style,
+         step = (duration || 200) / 20;
+     s.left = s.left || '0px';
+     (function animation() {
+         s.left = (parseInt(s.left, 10) - step) > 0 ? (parseInt(s.left, 10) - step) + 'px' : 0;
+         parseInt(s.left, 10) > 0 ? setTimeout(animation, 10) : s.left = 0;
+     })();
+ }
 
- 
+
+ SliderUnlock.prototype.animateOpacity = function(el, duration, opacity) {
+     var s = el.style,
+         step = 25 / (duration || 200);
+     s.opacity = s.opacity || 0;
+     (function animation() {
+         (s.opacity = parseFloat(s.opacity) + step) > 1 ? s.opacity = 1 : setTimeout(animation, 25);
+     })();
+ }
+
+
  SliderUnlock.prototype.checkElm = function(elm) {
      if (ele(elm).length > 0) {
          return true;
@@ -131,7 +124,7 @@
      }
  };
 
- 
+
  SliderUnlock.prototype.checkObj = function(obj) {
      if (typeof obj === "object") {
          return true;
@@ -140,7 +133,7 @@
      }
  };
 
- 
+
  SliderUnlock.prototype.checkFn = function(fn) {
      if (typeof fn === "function") {
          return true;
@@ -149,7 +142,7 @@
      }
  };
 
- 
+
  SliderUnlock.prototype.init = function() {
      var _self = this,
          _slideunlockLabel = ele(".slideunlock-label")[0];
@@ -200,7 +193,7 @@
      _self.swipestart = false;
 
  }
- 
+
  SliderUnlock.prototype.verify = function() {
      var _self = this,
          _labelTipEle = ele(".slideunlock-lable-tip")[0];
@@ -209,7 +202,7 @@
          function(data) {
              var key = JSON.parse(data);
              sessionStorage.num = key.num;
-             
+
              if (key.yn == 1) {
                  _self.yn = 'YES';
                  ele(".slideunlock-lockable")[0].value = 1;
@@ -251,19 +244,19 @@
      var _self = this;
      if ((_self.index + 0) >= _self.max) {
          _self.index = _self.max - 0;
-         
-         
-         
-         
+
+
+
+
      }
      if (_self.index < 0) {
          _self.index = _self.min;
-         
-         
+
+
      }
-     
-     
-     
+
+
+
      _self.backgroundTranslate();
      _self.updateView();
  }
@@ -273,8 +266,8 @@
      var _self = this,
          _labelTipEle = ele(".slideunlock-lable-tip")[0];
 
-     animateLeft(ele(".slideunlock-label")[0], _self.opts.duration, _self.index);
-     animateOpacity(ele(".slideunlock-lable-tip")[0], _self.opts.duration, 1);
+     _self.animateLeft(ele(".slideunlock-label")[0], _self.opts.duration, _self.index);
+     _self.animateOpacity(ele(".slideunlock-lable-tip")[0], _self.opts.duration, 1);
 
      _self.index = 0
      _self.updateView();
@@ -291,7 +284,7 @@
  SliderUnlock.prototype.backgroundTranslate = function() {
      var _self = this;
      ele(".slideunlock-label")[0].style.left = _self.index + "px";
-     
+
  }
 
  SliderUnlock.prototype.updateView = function() {
