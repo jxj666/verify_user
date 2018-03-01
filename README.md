@@ -14,9 +14,9 @@
 ![img3](img/3.png)
 
 ## 主要技术点
-1.图片的绘制(code.php)
-2.小滑块的滑动,停止报送滑块位置(slideunlock.js)
-3.滑动位置检测,登录状态记录(verify.php)
+1. 图片的绘制(code.php)
+2. 小滑块的滑动,停止报送滑块位置(slideunlock.js)
+3. 滑动位置检测,登录状态记录(verify.php)
 
 ![img4](img/4.png)
 
