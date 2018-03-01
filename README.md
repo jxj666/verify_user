@@ -8,7 +8,7 @@
 
 ![img2](img/1.png)
 
-###  本组件3基于 ArronYR / slideunlock-plugin (github) 滑动解锁组件;进行升级开发,实现了图片滑动解锁的核心功能
+###  本组件基于 ArronYR / slideunlock-plugin (github) 滑动解锁组件;进行升级开发,实现了图片滑动解锁的核心功能
 
 
 ![img3](img/3.png)
