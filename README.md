@@ -25,6 +25,6 @@
 
 [github](https://github.com/jxj322991/verify_user)
 
-<!-- ## 演示地址
+## 演示地址
 
-[点击](http://jxjweb.sc2yun.com/verify/) -->
+[点击](http://jxjweb.gz01.bdysite.com/verify_user/)
